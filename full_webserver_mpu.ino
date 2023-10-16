@@ -36,9 +36,9 @@ JSONVar readings;
 unsigned long lastTime = 0;  
 unsigned long lastTimeTemperature = 0;
 unsigned long lastTimeAcc = 0;
-unsigned long gyroDelay = 10;
+unsigned long gyroDelay = 10;//10
 unsigned long temperatureDelay = 1000;
-unsigned long accelerometerDelay = 200;
+unsigned long accelerometerDelay = 200; //200
 
 // Create a sensor object
 Adafruit_MPU6050 mpu;

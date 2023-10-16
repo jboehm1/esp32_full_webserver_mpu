@@ -100,9 +100,9 @@ if (!!window.EventSource) {
     document.getElementById("accZ").innerHTML = obj.accZ;
 
     // Change cube rotation after receiving the readings
-    cube.rotation.x = obj.gyroY;
-    cube.rotation.z = obj.gyroX;
-    cube.rotation.y = obj.gyroZ;
+    cube.rotation.x = obj.accY* 0.01745;
+    cube.rotation.z = obj.accX* 0.01745;
+    cube.rotation.y = 0; //obj.accZ; Set one axis to zero
     renderer.render(scene, camera);
   }, false);
 }
