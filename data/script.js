@@ -84,11 +84,7 @@ if (!!window.EventSource) {
     document.getElementById("gyroY").innerHTML = obj.gyroY;
     document.getElementById("gyroZ").innerHTML = obj.gyroZ;
 
-    // Change cube rotation after receiving the readinds
-    cube.rotation.x = obj.gyroY;
-    cube.rotation.z = obj.gyroX;
-    cube.rotation.y = obj.gyroZ;
-    renderer.render(scene, camera);
+
   }, false);
 
   source.addEventListener('temperature_reading', function(e) {
@@ -102,6 +98,12 @@ if (!!window.EventSource) {
     document.getElementById("accX").innerHTML = obj.accX;
     document.getElementById("accY").innerHTML = obj.accY;
     document.getElementById("accZ").innerHTML = obj.accZ;
+
+    // Change cube rotation after receiving the readings
+    cube.rotation.x = obj.gyroY;
+    cube.rotation.z = obj.gyroX;
+    cube.rotation.y = obj.gyroZ;
+    renderer.render(scene, camera);
   }, false);
 }
 

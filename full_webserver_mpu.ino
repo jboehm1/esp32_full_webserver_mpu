@@ -21,7 +21,7 @@
 // Replace with your network credentials
 const char* ssid = "HUAWEI-B535-EFC9";
 const char* password = "03MFQ8F117B";
-const float PI = 3.1415927; //JB
+//const float PI = 3.1415927; //JB
 
 // Create AsyncWebServer object on port 80
 AsyncWebServer server(80);
@@ -49,7 +49,7 @@ TwoWire I2CDEVICE = TwoWire(0);
 sensors_event_t a, g, temp;
 
 float gyroX, gyroY, gyroZ;
-float accX, accY, accZ;
+float accX, accY, accZ, accAngleX, accAngleY;
 float temperature;
 
 //Gyroscope sensor deviation
@@ -131,8 +131,8 @@ String getAccReadings() {
   // readings["accX"] = String(accX);
   // readings["accY"] = String(accY);
   // readings["accZ"] = String(accZ);
-  readings["angleX"] = String(accAngleX);
-  readings["angleY"] = String(accAngleY);
+  readings["accX"] = String(accAngleX);
+  readings["accY"] = String(accAngleY);
   readings["accZ"] = String(accZ);
   String accString = JSON.stringify (readings);
   return accString;
@@ -158,24 +158,24 @@ void setup() {
   server.serveStatic("/", SPIFFS, "/");
 
   server.on("/reset", HTTP_GET, [](AsyncWebServerRequest *request){
-    gyroX=0;
-    gyroY=0;
-    gyroZ=0;
+    accX=0;
+    accY=0;
+    accZ=0;
     request->send(200, "text/plain", "OK");
   });
 
   server.on("/resetX", HTTP_GET, [](AsyncWebServerRequest *request){
-    gyroX=0;
+    accX=0;
     request->send(200, "text/plain", "OK");
   });
 
   server.on("/resetY", HTTP_GET, [](AsyncWebServerRequest *request){
-    gyroY=0;
+    accY=0;
     request->send(200, "text/plain", "OK");
   });
 
   server.on("/resetZ", HTTP_GET, [](AsyncWebServerRequest *request){
-    gyroZ=0;
+    accZ=0;
     request->send(200, "text/plain", "OK");
   });
 
