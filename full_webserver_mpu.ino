@@ -9,8 +9,6 @@
   copies or substantial portions of the Software.
 *********/
 
-
-
 #include <Arduino.h>
 #include <WiFi.h>
 #include <AsyncTCP.h>
@@ -23,6 +21,7 @@
 // Replace with your network credentials
 const char* ssid = "HUAWEI-B535-EFC9";
 const char* password = "03MFQ8F117B";
+const float PI = 3.1415927; //JB
 
 // Create AsyncWebServer object on port 80
 AsyncWebServer server(80);
@@ -124,9 +123,16 @@ String getAccReadings() {
   accX = a.acceleration.x;
   accY = a.acceleration.y;
   accZ = a.acceleration.z;
-  
-  readings["accX"] = String(accX);
-  readings["accY"] = String(accY);
+
+  // Calculating Roll and Pitch from the accelerometer data //JB
+  accAngleX = (atan(accY / sqrt(pow(accX, 2) + pow(accZ, 2))) * 180 / PI) - 0.58; // AccErrorX ~(0.58) See the calculate_IMU_error()custom function for more details
+  accAngleY = (atan(-1 * accX / sqrt(pow(accY, 2) + pow(accZ, 2))) * 180 / PI) + 1.58; // AccErrorY ~(-1.58)
+
+  // readings["accX"] = String(accX);
+  // readings["accY"] = String(accY);
+  // readings["accZ"] = String(accZ);
+  readings["angleX"] = String(accAngleX);
+  readings["angleY"] = String(accAngleY);
   readings["accZ"] = String(accZ);
   String accString = JSON.stringify (readings);
   return accString;
